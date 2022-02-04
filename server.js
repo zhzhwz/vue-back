@@ -32,7 +32,7 @@ app.all('/api/fileDownload', (request, response) => {
     if (body == null) {
         return response.end('No such file');
     }
-    return response.end(body.filename);
+    return response.end(JSON.stringify(body));
     const fileName = body.filename
     const filePath = './' + fileName
     if(!fs.existsSync(filePath)){
