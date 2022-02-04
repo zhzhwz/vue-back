@@ -1,5 +1,5 @@
-const { response } = require('express');
 const express = require('express');
+const fs = require('fs')
 
 const app = express();
 
@@ -30,6 +30,16 @@ app.all('/api/fileDownload', (request, response) => {
     if (body == null) {
         return response.end('No such file');
     }
+    const fileName = 'Dockerfile'
+    const filePath = './Dockerfile'
+    if(!fs.existsSync(filePath)){
+        return res.send({code:"1",message:"file is not exist"})
+    }
+    res.status(200).download(filePath,fileName,(err)=>{
+        if(err){
+            res.send({code:"1",message:"server err"})
+        }
+    })
     response.end(body);
 });
 
