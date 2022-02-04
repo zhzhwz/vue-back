@@ -16,7 +16,7 @@ app.all('/api/users', (request, response) => {
 
 app.all('/api/fileName', (request, response) => {
     const files = [
-        {filename: 'file1'},
+        {filename: 'server.js'},
         {filename: 'file2'},
         {filename: 'file3'},
     ]
@@ -31,8 +31,8 @@ app.all('/api/fileDownload', (request, response) => {
     if (query == null) {
         return response.end('No such file');
     }
-    const fileName = 'server.js'
-    const filePath = './server.js'
+    const fileName = query.filename
+    const filePath = './' + fileName
     if(!fs.existsSync(filePath)){
         return response.send({code:"1",message:"file is not exist"})
     }
