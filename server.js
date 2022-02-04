@@ -26,13 +26,12 @@ app.all('/api/fileName', (request, response) => {
 
 app.all('/api/fileDownload', (request, response) => {
     response.setHeader('Access-Control-Allow-Origin', '*');
-    const query = request.query;
-    console.log(query);
-    return response.end(String(query));
-    if (query == null) {
+    const body = request.body;
+    return response.end(body);
+    if (body == null) {
         return response.end('No such file');
     }
-    const fileName = query.filename
+    const fileName = body.filename
     const filePath = './' + fileName
     if(!fs.existsSync(filePath)){
         return response.send({code:"1",message:"file is not exist"})
