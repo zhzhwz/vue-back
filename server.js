@@ -21,7 +21,7 @@ app.all('/api/fileName', (request, response) => {
         {filename: 'file3'},
     ]
     response.setHeader('Access-Control-Allow-Origin', '*');
-    request.end(JSON.stringify(files));
+    response.end(JSON.stringify(files));
 })
 
 app.all('/api/fileDownload', (request, response) => {
@@ -30,7 +30,7 @@ app.all('/api/fileDownload', (request, response) => {
     if (body == null) {
         return response.end('No such file');
     }
-    request.end(body);
+    response.end(body);
 });
 
 app.listen(3000, () => {
