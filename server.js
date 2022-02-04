@@ -3,6 +3,8 @@ const fs = require('fs')
 
 const app = express();
 
+app.use(express.urlencoded({extended: false}));
+
 app.all('/api/users', (request, response) => {
     const users = [
         { id: 1, name: 'zhzhwz' },
