@@ -31,8 +31,8 @@ app.all('/api/fileDownload', (request, response) => {
     if (query == null) {
         return response.end('No such file');
     }
-    const fileName = 'Dockerfile'
-    const filePath = './Dockerfile'
+    const fileName = 'server.js'
+    const filePath = './server.js'
     if(!fs.existsSync(filePath)){
         return response.send({code:"1",message:"file is not exist"})
     }
