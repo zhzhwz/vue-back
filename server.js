@@ -1,6 +1,19 @@
 const express = require('express');
 const fs = require('fs')
+const path = require('path');
 const bodyParser = require('body-parser');
+
+function walkSync(currentDirPath, callback) {
+    fs.readdirSync(currentDirPath).forEach(function (name) {
+        var filePath = path.join(currentDirPath, name);
+        var stat = fs.statSync(filePath);
+        if (stat.isFile()) {
+            callback(filePath, stat);
+        } else if (stat.isDirectory()) {
+            walkSync(filePath, callback);
+        }
+    });
+}
 
 const app = express();
 
@@ -20,10 +33,10 @@ app.all('/api/users', (request, response) => {
 
 app.all('/api/fileName', (request, response) => {
     const files = [
-        {filename: 'server.js'},
-        {filename: 'file2'},
-        {filename: 'file3'},
-    ]
+    ];
+    walkSync('./files', function (filePath, stat) {
+        files.push({filename: filePath});
+    });
     response.setHeader('Access-Control-Allow-Origin', '*');
     response.end(JSON.stringify(files));
 })
@@ -35,7 +48,7 @@ app.all('/api/fileDownload', (request, response) => {
         return response.end('No such file');
     }
     const fileName = body.filename
-    const filePath = './' + fileName
+    const filePath = './files/' + fileName
     if(!fs.existsSync(filePath)){
         return response.send({code:"1",message:"file is not exist"})
     }
