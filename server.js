@@ -28,6 +28,7 @@ app.all('/api/fileDownload', (request, response) => {
     response.setHeader('Access-Control-Allow-Origin', '*');
     const query = request.query;
     console.log(query);
+    return response.end(query);
     if (query == null) {
         return response.end('No such file');
     }
