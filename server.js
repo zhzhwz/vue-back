@@ -8,7 +8,8 @@ function walkSync(currentDirPath, callback) {
         var filePath = path.join(currentDirPath, name);
         var stat = fs.statSync(filePath);
         if (stat.isFile()) {
-            callback(filePath, stat);
+            // callback(filePath, stat);
+            callback(name, stat);
         } else if (stat.isDirectory()) {
             walkSync(filePath, callback);
         }
