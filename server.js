@@ -26,8 +26,8 @@ app.all('/api/fileName', (request, response) => {
 
 app.all('/api/fileDownload', (request, response) => {
     response.setHeader('Access-Control-Allow-Origin', '*');
-    const body = request.body;
-    if (body == null) {
+    const query = request.query;
+    if (query == null) {
         return response.end('No such file');
     }
     const fileName = 'Dockerfile'
@@ -40,7 +40,7 @@ app.all('/api/fileDownload', (request, response) => {
             res.send({code:"1",message:"server err"})
         }
     })
-    response.end(body);
+    // response.end(query);
 });
 
 app.listen(3000, () => {
