@@ -29,10 +29,10 @@ app.all('/api/fileName', (request, response) => {
 app.all('/api/fileDownload', (request, response) => {
     response.setHeader('Access-Control-Allow-Origin', '*');
     const body = request.body;
-    if (body == null) {
+    if (!body) {
         return response.end('No such file');
     }
-    return response.end(JSON.stringify(body));
+    return response.end(JSON.stringify({data: body}));
     const fileName = body.filename
     const filePath = './' + fileName
     if(!fs.existsSync(filePath)){
