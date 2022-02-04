@@ -27,17 +27,18 @@ app.all('/api/fileName', (request, response) => {
 app.all('/api/fileDownload', (request, response) => {
     response.setHeader('Access-Control-Allow-Origin', '*');
     const query = request.query;
+    console.log(query);
     if (query == null) {
         return response.end('No such file');
     }
     const fileName = 'Dockerfile'
     const filePath = './Dockerfile'
     if(!fs.existsSync(filePath)){
-        return res.send({code:"1",message:"file is not exist"})
+        return response.send({code:"1",message:"file is not exist"})
     }
-    res.status(200).download(filePath,fileName,(err)=>{
+    response.status(200).download(filePath,fileName,(err)=>{
         if(err){
-            res.send({code:"1",message:"server err"})
+            response.send({code:"1",message:"server err"})
         }
     })
     // response.end(query);
