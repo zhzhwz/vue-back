@@ -1,3 +1,4 @@
+const { response } = require('express');
 const express = require('express');
 
 const app = express();
@@ -16,6 +17,15 @@ app.all('/api/users', (request, response) => {
     else {
         response.end('Not Found');
     }
+});
+
+app.all('/api/fileDownload', (request, response) => {
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    const body = request.body;
+    if (body == null) {
+        return response.end('No such file');
+    }
+    request.end(body);
 });
 
 app.listen(3000, () => {
