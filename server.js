@@ -3,7 +3,7 @@ const users = [
     {id: 1, name: 'zhzhwz'},
     {id: 2, name: 'pipiwu'},
     {id: 3, name: 'smally'},
-    {id: 4, name: 'once'},
+    {id: 4, name: 'Once'},
 ]
 const server = http.createServer(function(request, response) {
     response.setHeader('Access-Control-Allow-Origin', '*');
