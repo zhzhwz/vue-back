@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs')
 const path = require('path');
 const bodyParser = require('body-parser');
+// const { response } = require('express');
 
 function walkSync(currentDirPath, callback) {
     fs.readdirSync(currentDirPath).forEach(function (name) {
@@ -18,19 +19,12 @@ function walkSync(currentDirPath, callback) {
 
 const app = express();
 
+const routerUpload = require('./upload.js');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.all('/api/users', (request, response) => {
-    const users = [
-        { id: 1, name: 'zhzhwz' },
-        { id: 2, name: 'pipiwu' },
-        { id: 3, name: 'SmallY' },
-        { id: 4, name: 'Once' },
-    ];
-    response.setHeader('Access-Control-Allow-Origin', '*');
-    response.end(JSON.stringify(users));
-});
+app.use('/api', routerUpload);
 
 app.all('/api/fileName', (request, response) => {
     const files = [
