@@ -8,6 +8,10 @@ const router = express.Router();
 const upload = multer({ dest: uploadPath });
 
 routerFileUpload = router.post('/upload', upload.single('inputFile'),function(req,res,next){
+    if (req.file === undefined) {
+        res.send({ success: false, message: 'No file uploaded' });
+        return ;
+    }
     const oldPath = req.file.path;
     const newFileName = req.file.originalname;
     const extFileName = path.extname(newFileName);
