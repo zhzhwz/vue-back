@@ -3,8 +3,8 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-app.use(express.json({ limit: '100mb' }));
-app.use(express.urlencoded({ limit: '100mb', extended: false }));
+app.use(bodyParser.json({ limit: '100mb' }));
+app.use(bodyParser.urlencoded({ limit: '100mb', extended: false }));
 
 const routerFileUpload = require('./file/upload.js');
 app.use('/api/file', routerFileUpload);
